@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PokemonList from "./Components/PokemonList";
 import PokemonDetail from "./Components/PokemonDetail";
 import MyPokemonList from "./Components/MyPokemonList";
+import PokemonCard from "./Components/PokemonCard";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
@@ -21,7 +22,9 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route path="/PokemonList" element={<PokemonList />} />
-            <Route path="/PokemonDetail" element={<PokemonDetail />} />
+            <Route path="/PokemonDetail" element={<PokemonDetail />}>
+              <Route path=":pokemonName" element={<PokemonCard />} />
+            </Route>
             <Route path="/MyPokemonList" element={<MyPokemonList />} />
           </Route>
         </Routes>

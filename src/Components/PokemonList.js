@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const POKEMON_LIST = gql`
   query pokemons($limit: Int, $offset: Int) {
@@ -32,10 +33,10 @@ const PokemonList = () => {
     <>
       <h1> This is Pokemon List page </h1>
       {data.pokemons.results.map((result) => (
-        <div key={result.id}>
+        <Link to={`/PokemonDetail/${result.name}`} key={result.id}>
           <img src={result.image} alt={result.name} />
           <h1>{result.name}</h1>
-        </div>
+        </Link>
       ))}
     </>
   );
