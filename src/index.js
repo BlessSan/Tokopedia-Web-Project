@@ -1,14 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PokemonList from "./Components/PokemonList";
+import PokemonDetail from "./Components/PokemonDetail";
+import MyPokemonList from "./Components/MyPokemonList";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route path="/PokemonList" element={<PokemonList />} />
+          <Route path="/PokemonDetail" element={<PokemonDetail />} />
+          <Route path="/MyPokemonList" element={<MyPokemonList />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
