@@ -7,18 +7,26 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PokemonList from "./Components/PokemonList";
 import PokemonDetail from "./Components/PokemonDetail";
 import MyPokemonList from "./Components/MyPokemonList";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "https://graphql-pokeapi.graphcdn.app",
+  cache: new InMemoryCache(),
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="/PokemonList" element={<PokemonList />} />
-          <Route path="/PokemonDetail" element={<PokemonDetail />} />
-          <Route path="/MyPokemonList" element={<MyPokemonList />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="/PokemonList" element={<PokemonList />} />
+            <Route path="/PokemonDetail" element={<PokemonDetail />} />
+            <Route path="/MyPokemonList" element={<MyPokemonList />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
