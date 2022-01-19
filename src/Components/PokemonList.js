@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -25,11 +25,11 @@ const PokemonList = () => {
     });
   };
 
-  console.log("Response from server : ", data);
-  console.log(window.scrollY);
-
   const dataLength = data.pokemons ? data.pokemons.results.length : 0;
   const hasMore = data.pokemons ? data.pokemons.count > dataLength : true;
+
+  console.log("Response from server : ", data);
+  console.log(window.scrollY);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
+import PokemonSearch from "./Components/PokemonSearch";
 import "./App.css";
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <Link to="/PokemonList">Pokemon List</Link>
       <Link to="/PokemonDetail">Pokemon Detail</Link>
       <Link to="/MyPokemonList">My Pokemon List</Link>
+      <PokemonSearch />
       <Outlet />
     </>
   );

@@ -1,5 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
 import React from "react";
+import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_POKEMON_DETAIL } from "../GraphQL/queries";
 
