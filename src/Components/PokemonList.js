@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { GET_POKEMON_LIST } from "../GraphQL/queries";
+import { GET_POKEMON_LIST } from "../graphql/queries";
 
 const gqlVariables = {
   limit: 10,

@@ -6,11 +6,11 @@ import { ApolloProvider } from "@apollo/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { client } from "./GraphQL/client";
-import PokemonList from "./Components/PokemonList";
-import PokemonDetail from "./Components/PokemonDetail";
-import MyPokemonList from "./Components/MyPokemonList";
-import PokemonCard from "./Components/PokemonCard";
+import { client } from "./graphql/client";
+import PokemonList from "./components/PokemonList";
+import PokemonDetail from "./components/PokemonDetail";
+import MyPokemonList from "./components/MyPokemonList";
+import PokemonCard from "./components/PokemonCard";
 
 ReactDOM.render(
   <React.StrictMode>

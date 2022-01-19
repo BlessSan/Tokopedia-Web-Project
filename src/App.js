@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import PokemonSearch from "./Components/PokemonSearch";
+import PokemonSearch from "./components/PokemonSearch";
 import "./App.css";
 
 function App() {
