@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { GET_POKEMON_LIST } from "../graphql/queries";
+import { useMyPokemonStore } from "../store/zustandStore";
 
 const gqlVariables = {
   limit: 10,
@@ -10,6 +11,7 @@ const gqlVariables = {
 };
 
 const PokemonList = () => {
+  const getPokemonCount = useMyPokemonStore((state) => state.getPokemonCount);
   const { loading, error, data, fetchMore } = useQuery(GET_POKEMON_LIST, {
     variables: gqlVariables,
   });
@@ -45,6 +47,7 @@ const PokemonList = () => {
           <Link to={`/PokemonDetail/${result.name}`} key={result.id}>
             <img src={result.image} alt={result.name} />
             <h1>{result.name}</h1>
+            <h1>{getPokemonCount(result.id) || null}</h1>
           </Link>
         ))}
       </InfiniteScroll>

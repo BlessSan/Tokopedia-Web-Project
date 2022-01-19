@@ -1,7 +1,22 @@
 import React from "react";
+import { useMyPokemonStore } from "../store/zustandStore";
 
 const MyPokemonList = () => {
-  return <h1> This is My Pokemon List page </h1>;
+  const [pokemonsList, removePokemon, getPokemonCount] = useMyPokemonStore(
+    (state) => [state.pokemonsList, state.removePokemon, state.getPokemonCount]
+  );
+  return (
+    <>
+      {pokemonsList.map((pokemon) => (
+        <div key={pokemon.index}>
+          <img src={pokemon.image} alt={pokemon.name} />
+          <h1>{pokemon.name}</h1>
+          <h1>{getPokemonCount(pokemon.id)}</h1>
+          <button onClick={() => removePokemon(pokemon.index)}>remove</button>
+        </div>
+      ))}
+    </>
+  );
 };
 
 export default MyPokemonList;
