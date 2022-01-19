@@ -1,7 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
-
+//! make sure query only the data I need
 const POKEMON_DETAIL = gql`
   query pokemon($name: String!) {
     pokemon(name: $name) {
