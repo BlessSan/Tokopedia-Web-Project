@@ -1,35 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useParams } from "react-router-dom";
-//! make sure query only the data I need
-const POKEMON_DETAIL = gql`
-  query pokemon($name: String!) {
-    pokemon(name: $name) {
-      id
-      name
-      sprites {
-        front_default
-      }
-      abilities {
-        ability {
-          name
-        }
-      }
-      moves {
-        move {
-          name
-        }
-      }
-      types {
-        type {
-          name
-        }
-      }
-      message
-      status
-    }
-  }
-`;
+import { GET_POKEMON_DETAIL } from "../GraphQL/queries";
 
 const PokemonCard = () => {
   const params = useParams();
@@ -38,7 +10,7 @@ const PokemonCard = () => {
     name: `${params.pokemonName}`,
   };
 
-  const { loading, error, data } = useQuery(POKEMON_DETAIL, {
+  const { loading, error, data } = useQuery(GET_POKEMON_DETAIL, {
     variables: gqlVariables,
   });
 

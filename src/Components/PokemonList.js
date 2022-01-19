@@ -2,22 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-
-//! implement pagination
-
-const POKEMON_LIST = gql`
-  query pokemons($limit: Int, $offset: Int) {
-    pokemons(limit: $limit, offset: $offset) {
-      count
-      results {
-        id
-        url
-        name
-        image
-      }
-    }
-  }
-`;
+import { GET_POKEMON_LIST } from "../GraphQL/queries";
 
 const gqlVariables = {
   limit: 10,
@@ -25,7 +10,7 @@ const gqlVariables = {
 };
 
 const PokemonList = () => {
-  const { loading, error, data, fetchMore } = useQuery(POKEMON_LIST, {
+  const { loading, error, data, fetchMore } = useQuery(GET_POKEMON_LIST, {
     variables: gqlVariables,
   });
 
@@ -41,15 +26,16 @@ const PokemonList = () => {
   };
 
   console.log("Response from server : ", data);
+  console.log(window.scrollY);
 
-  const currentLength = data.pokemons ? data.pokemons.results.length : 0;
-  const hasMore = data.pokemons ? data.pokemons.count > currentLength : true;
+  const dataLength = data.pokemons ? data.pokemons.results.length : 0;
+  const hasMore = data.pokemons ? data.pokemons.count > dataLength : true;
 
   return (
     <>
       <h1> This is Pokemon List page </h1>
       <InfiniteScroll
-        dataLength={currentLength}
+        dataLength={dataLength}
         next={next}
         hasMore={hasMore}
         loader={<h1>Loading...</h1>}
