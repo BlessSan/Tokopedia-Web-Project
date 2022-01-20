@@ -13,8 +13,7 @@ function App() {
         <Link to="/pokemon-detail">Pokemon Detail</Link>
         <Link to="/my-pokemon-list">My Pokemon List</Link>
         <PokemonSearch />
-        <PokemonList />
-        <Outlet />
+        {<Outlet /> || <PokemonList />}
       </Container>
     </>
   );
