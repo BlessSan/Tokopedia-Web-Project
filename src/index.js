@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
+import "reactjs-popup/dist/index.css";
 
 import "./index.css";
 import App from "./App";

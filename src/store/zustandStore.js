@@ -28,10 +28,13 @@ export const useMyPokemonStore = create(
         return count;
       },
       checkIfNicknameExist: (nickname) => {
+        let result = false;
         get().pokemonsList.forEach((pokemon) => {
-          if (pokemon.nickname === nickname) return true;
+          if (pokemon.nickname === nickname) {
+            result = true;
+          }
         });
-        return false;
+        return result;
       },
       resetList: () => set({ pokemonsList: [] }),
     }),
