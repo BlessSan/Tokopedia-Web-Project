@@ -11,7 +11,7 @@ import { client } from "./graphql/client";
 import PokemonList from "./components/PokemonList";
 import PokemonDetail from "./components/PokemonDetail";
 import MyPokemonList from "./components/MyPokemonList";
-import PokemonCard from "./components/PokemonCard";
+import PokemonCard from "./components/PokemonDetailCard";
 
 ReactDOM.render(
   <React.StrictMode>

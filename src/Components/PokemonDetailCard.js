@@ -26,8 +26,8 @@ const Modal = ({ open, closeModal }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setNickname("");
     const exist = checkIfNicknameExist(nickname);
-    console.log("nickname exist :", exist);
     if (exist) {
       setError(true);
     } else {
@@ -49,7 +49,9 @@ const Modal = ({ open, closeModal }) => {
             onChange={handleInput}
             onFocus={() => setError(false)}
           />
-          {error ? <h3>Error</h3> : null}
+          {error ? (
+            <h3>nickname already exist, please choose another one</h3>
+          ) : null}
           <input type="submit" value="enter" />
         </form>
       </div>

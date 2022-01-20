@@ -1,17 +1,19 @@
-import { useQuery } from "@apollo/client";
+/** @jsxImportSource @emotion/react */
+
 import React from "react";
+import { css } from "@emotion/react";
+import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { GET_POKEMON_LIST } from "../graphql/queries";
-import { useMyPokemonStore } from "../store/zustandStore";
+import PokemonListCard from "./PokemonListCard";
 
 const gqlVariables = {
-  limit: 10,
+  limit: 12,
   offset: 0,
 };
 
 const PokemonList = () => {
-  const getPokemonCount = useMyPokemonStore((state) => state.getPokemonCount);
   const { loading, error, data, fetchMore } = useQuery(GET_POKEMON_LIST, {
     variables: gqlVariables,
   });
@@ -33,26 +35,36 @@ const PokemonList = () => {
   console.log("Response from server : ", data);
   console.log(window.scrollY);
 
+  const layout = css`
+    margin-top: 1em;
+    padding: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    @media screen and (max-width: 900px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    gap: 1em;
+  `;
+
   return (
     <>
       <h1> This is Pokemon List page </h1>
+
       <InfiniteScroll
         dataLength={dataLength}
         next={next}
         hasMore={hasMore}
         loader={<h1>Loading...</h1>}
         endMessage={<h1>End</h1>}
+        css={layout}
       >
-        {data.pokemons.results.map((result) => (
-          <Link to={`/PokemonDetail/${result.name}`} key={result.id}>
-            <img src={result.image} alt={result.name} />
-            <h1>{result.name}</h1>
-            <h1>{getPokemonCount(result.id) || null}</h1>
+        {data.pokemons.results.map((pokemon) => (
+          <Link to={`/PokemonDetail/${pokemon.name}`} key={pokemon.id}>
+            <PokemonListCard pokemon={pokemon} />
           </Link>
         ))}
       </InfiniteScroll>
     </>
   );
 };
-
 export default PokemonList;
