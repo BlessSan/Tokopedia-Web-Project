@@ -11,7 +11,7 @@ const PokemonSearch = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    navigate(`/PokemonDetail/${pokemonName.toLowerCase()}`);
+    navigate(`/pokemon-detail/${pokemonName.toLowerCase()}`);
   };
 
   return (

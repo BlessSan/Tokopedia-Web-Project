@@ -8,9 +8,9 @@ function App() {
     <>
       <Container>
         <h1>App</h1>
-        <Link to="/PokemonList">Pokemon List</Link>
-        <Link to="/PokemonDetail">Pokemon Detail</Link>
-        <Link to="/MyPokemonList">My Pokemon List</Link>
+        <Link to="/pokemon-list">Pokemon List</Link>
+        <Link to="/pokemon-detail">Pokemon Detail</Link>
+        <Link to="/my-pokemon-list">My Pokemon List</Link>
         <PokemonSearch />
         <Outlet />
       </Container>

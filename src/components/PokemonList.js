@@ -59,7 +59,7 @@ const PokemonList = () => {
         css={layout}
       >
         {data.pokemons.results.map((pokemon) => (
-          <Link to={`/PokemonDetail/${pokemon.name}`} key={pokemon.id}>
+          <Link to={`/pokemon-detail/${pokemon.name}`} key={pokemon.id}>
             <PokemonListCard pokemon={pokemon} />
           </Link>
         ))}
