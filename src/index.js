@@ -19,11 +19,11 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route path="/PokemonList" element={<PokemonList />} />
-            <Route path="/PokemonDetail" element={<PokemonDetail />}>
+            <Route path="PokemonList" element={<PokemonList />} />
+            <Route path="PokemonDetail" element={<PokemonDetail />}>
               <Route path=":pokemonName" element={<PokemonCard />} />
             </Route>
-            <Route path="/MyPokemonList" element={<MyPokemonList />} />
+            <Route path="MyPokemonList" element={<MyPokemonList />} />
           </Route>
         </Routes>
       </BrowserRouter>
