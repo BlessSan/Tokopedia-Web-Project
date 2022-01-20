@@ -1,4 +1,4 @@
 [[redirects]]
   from = "/*"
-  to = "/pokemon-list"
+  to = "/index.html"
   status = 200
