@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/*"
+  to = "/pokemon-list"
+  status = 200
