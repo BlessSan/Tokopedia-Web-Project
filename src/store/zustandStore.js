@@ -22,12 +22,18 @@ export const useMyPokemonStore = create(
               (pokemon) => pokemon.index !== index
             ))
         ),
-      resetList: () => set({ pokemonsList: [] }),
       getPokemonCount: (id) => {
         let count = 0;
-        get().pokemonsList.map((pokemon) => pokemon.id === id && ++count);
+        get().pokemonsList.forEach((pokemon) => pokemon.id === id && ++count);
         return count;
       },
+      checkIfNicknameExist: (nickname) => {
+        get().pokemonsList.forEach((pokemon) => {
+          if (pokemon.nickname === nickname) return true;
+        });
+        return false;
+      },
+      resetList: () => set({ pokemonsList: [] }),
     }),
     {
       name: "myPokemonList",
