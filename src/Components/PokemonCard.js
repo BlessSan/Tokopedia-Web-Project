@@ -17,6 +17,7 @@ const Modal = ({ open, closeModal }) => {
     sprites: { front_default: img },
     name,
   } = useContext(pokemonDetailsContext);
+  const [error, setError] = useState(false);
   const [nickname, setNickname] = useState("");
 
   const handleInput = (event) => {
@@ -27,18 +28,28 @@ const Modal = ({ open, closeModal }) => {
     event.preventDefault();
     const exist = checkIfNicknameExist(nickname);
     console.log("nickname exist :", exist);
-    addPokemon(id, img, nickname, name);
-    closeModal();
+    if (exist) {
+      setError(true);
+    } else {
+      addPokemon(id, img, nickname, name);
+      closeModal();
+    }
   };
   return (
-    <Popup open={open} closeOnDocumentClick={false} onClose={closeModal}>
+    <Popup open={open} closeOnDocumentClick={false} nested>
       <div className="modal">
         <button className="close" onClick={closeModal}>
           &times;
         </button>
+        <h1>Enter Nickname</h1>
         <form onSubmit={handleSubmit}>
-          <h1>Enter Nickname</h1>
-          <input type="text" value={nickname} onChange={handleInput} />
+          <input
+            type="text"
+            value={nickname}
+            onChange={handleInput}
+            onFocus={() => setError(false)}
+          />
+          {error ? <h3>Error</h3> : null}
           <input type="submit" value="enter" />
         </form>
       </div>
