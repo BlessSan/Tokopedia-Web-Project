@@ -59,13 +59,18 @@ const PokemonDetailCard = () => {
   `;
 
   const movesContainer = css`
-    display: flex;
-    flex-flow: row wrap;
-    flex-grow: 1;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    @media screen and (min-width: 700px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media screen and (min-width: 970px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    gap: 5px;
     padding: 1em;
     min-height: 100px;
-    max-height: 800px;
+    max-height: 80vh;
     overflow-y: auto;
   `;
 
