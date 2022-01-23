@@ -1,94 +1,90 @@
-import React, { useState, createContext, useContext } from "react";
+/** @jsxImportSource @emotion/react */
+
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_POKEMON_DETAIL } from "../graphql/queries";
 import { useMyPokemonStore } from "../store/zustandStore";
-import Popup from "reactjs-popup";
+import { css } from "@emotion/react";
+import shallow from "zustand/shallow";
 
-const pokemonDetailsContext = createContext();
+const PokemonDetailCard = () => {
+  const card = css`
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+    border-radius: 0 0 50px 50px;
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    background-color: grey;
+  `;
 
-const Modal = ({ open, closeModal }) => {
-  const [addPokemon, checkIfNicknameExist] = useMyPokemonStore((state) => [
-    state.addPokemon,
-    state.checkIfNicknameExist,
-  ]);
-  const {
-    id,
-    sprites: { front_default: img },
-    name,
-  } = useContext(pokemonDetailsContext);
-  const [error, setError] = useState(false);
-  const [nickname, setNickname] = useState("");
+  const name = css`
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 24px;
+    word-wrap: break-word;
+    text-align: center;
+    text-transform: capitalize;
+  `;
 
-  const handleInput = (event) => {
-    setNickname(event.target.value);
-  };
+  const ownedNumber = css`
+    position: relative;
+    top: -18px;
+    right: 10px;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
+  `;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setNickname("");
-    const exist = checkIfNicknameExist(nickname);
-    if (exist) {
-      setError(true);
-    } else {
-      addPokemon(id, img, nickname, name);
-      closeModal();
-    }
-  };
-  return (
-    <Popup open={open} closeOnDocumentClick={false} nested>
-      <div className="modal">
-        <button className="close" onClick={closeModal}>
-          &times;
-        </button>
-        <h1>Enter Nickname</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleInput}
-            onFocus={() => setError(false)}
-          />
-          {error ? (
-            <h3>nickname already exist, please choose another one</h3>
-          ) : null}
-          <input type="submit" value="enter" />
-        </form>
-      </div>
-    </Popup>
-  );
-};
+  const image = css`
+    height: 96px;
+    width: 96px;
+    padding: 8px;
+    border-radius: 500px;
+    border-color: black;
+    border-style: solid;
+    background-color: white;
+  `;
 
-const CatchPokemonButton = () => {
-  const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const pokeball = css`
+    height: 96px;
+    width: 96px;
+  `;
 
-  const handleCatch = () => {
-    const isCaught = Math.random() < 0.5;
-    setLoading(false);
-    console.log(isCaught);
-    if (isCaught) {
-      setOpen(true);
-    }
-  };
+  const pokeballContainer = css`
+    height: 96px;
+    width: 96px;
+  `;
 
-  const handleClick = () => {
-    setLoading(true);
-    setTimeout(handleCatch, 1500);
-  };
+  const movesContainer = css`
+    display: flex;
+    flex-flow: row wrap;
+    flex-grow: 1;
+    justify-content: space-around;
+    padding: 1em;
+    min-height: 100px;
+    max-height: 800px;
+    overflow-y: auto;
+  `;
 
-  return (
-    <>
-      <button disabled={loading} onClick={handleClick}>
-        {loading ? "loading" : "catch"}
-      </button>
-      <Modal open={open} closeModal={() => setOpen(false)} />
-    </>
-  );
-};
+  const moveContainer = css`
+    border: 2px solid gray;
+    text-transform: capitalize;
+    border-radius: 10px;
+    padding: 0.5em;
+    font-size: 16px;
+    white-space: nowrap;
+    text-align: center;
+  `;
 
-const PokemonCard = () => {
   const params = useParams();
+
+  const [getPokemonCount, setPokemonDetail] = useMyPokemonStore(
+    (state) => [state.getPokemonCount, state.setPokemonDetail],
+    shallow //* fixes infinite render
+  );
 
   const gqlVariables = {
     name: `${params.pokemonName}`,
@@ -99,20 +95,50 @@ const PokemonCard = () => {
   });
 
   console.log("Response from server : ", data);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
+  setPokemonDetail(
+    data.pokemon.id,
+    data.pokemon.sprites.front_default,
+    data.pokemon.name
+  );
   return (
-    <pokemonDetailsContext.Provider value={data.pokemon}>
-      <img src={data.pokemon.sprites.front_default} alt={data.pokemon.name} />
-      <h1>{data.pokemon.name}</h1>
-      <CatchPokemonButton
-        id={data.pokemon.id}
-        img={data.pokemon.sprites.front_default}
-        name={data.pokemon.name}
-      />
-    </pokemonDetailsContext.Provider>
+    <>
+      <div css={card}>
+        <img
+          css={image}
+          src={data.pokemon.sprites.front_default}
+          alt={data.pokemon.name}
+        />
+        <p css={name}>{data.pokemon.name}</p>
+        <div css={pokeballContainer}>
+          <img
+            css={pokeball}
+            src={
+              getPokemonCount(data.pokemon.id)
+                ? "/assets/pokeball_filled.png"
+                : "/assets/pokeball_hollow.png"
+            }
+            alt="ownStatus"
+          />
+          <p css={ownedNumber}>
+            {getPokemonCount(data.pokemon.id)
+              ? `Owned: ${getPokemonCount(data.pokemon.id)}`
+              : null}
+          </p>
+        </div>
+      </div>
+      <div css={movesContainer}>
+        {data.pokemon.moves.map((move, index) => (
+          <p key={index} css={moveContainer}>
+            {move.move.name}
+          </p>
+        ))}
+      </div>
+    </>
   );
 };
 
-export default PokemonCard;
+export default PokemonDetailCard;
