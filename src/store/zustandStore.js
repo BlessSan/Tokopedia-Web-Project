@@ -5,14 +5,14 @@ export const useMyPokemonStore = create(
   persist(
     (set, get) => ({
       pokemonsList: [],
-      addPokemon: (id, image, nickname, name) =>
+      pokemonDetail: {},
+      activeMenu: 0,
+      addPokemon: (nickname) =>
         set((state) =>
           state.pokemonsList.push({
             index: state.pokemonsList.length,
-            id: id,
-            image: image,
             nickname: nickname,
-            name: name,
+            ...get().pokemonDetail,
           })
         ),
       removePokemon: (index) =>
@@ -37,9 +37,24 @@ export const useMyPokemonStore = create(
         return result;
       },
       resetList: () => set({ pokemonsList: [] }),
+      setActiveMenu: (id) => set((state) => (state.activeMenu = id)),
+      setPokemonDetail: (id, image, name) =>
+        set(
+          (state) =>
+            (state.pokemonDetail = {
+              id: id,
+              image: image,
+              name: name,
+            })
+        ),
     }),
     {
       name: "myPokemonList",
     }
   )
 );
+
+export const useIsActive = (id) => {
+  const isActive = useMyPokemonStore((state) => state.activeMenu === id);
+  return isActive;
+};
