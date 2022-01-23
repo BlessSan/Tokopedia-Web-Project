@@ -25,8 +25,8 @@ const MyPokemonList = () => {
   return (
     <Container>
       <div css={layout}>
-        {pokemonsList.map((pokemon) => (
-          <div key={pokemon.index}>
+        {pokemonsList.map((pokemon, index) => (
+          <div key={index}>
             <PokemonListCard pokemon={pokemon} />
             <button onClick={() => removePokemon(pokemon.index)}>
               Release
