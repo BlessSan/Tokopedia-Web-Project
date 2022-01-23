@@ -6,10 +6,7 @@ import PokemonListCard from "./PokemonListCard";
 import Container from "./container";
 
 const MyPokemonList = () => {
-  const [pokemonsList, removePokemon] = useMyPokemonStore((state) => [
-    state.pokemonsList,
-    state.removePokemon,
-  ]);
+  const [pokemonsList] = useMyPokemonStore((state) => [state.pokemonsList]);
 
   const layout = css`
     margin-top: 1em;

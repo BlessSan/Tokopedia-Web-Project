@@ -39,7 +39,6 @@ const PokemonListCard = ({ pokemon }) => {
     font-weight: 400;
     font-size: 12px;
     word-wrap: break-word;
-    text-align: center;
     text-transform: capitalize;
   `;
 
@@ -49,7 +48,6 @@ const PokemonListCard = ({ pokemon }) => {
     font-weight: 600;
     font-size: 24px;
     word-wrap: break-word;
-    text-align: center;
     text-transform: capitalize;
   `;
 
@@ -84,9 +82,9 @@ const PokemonListCard = ({ pokemon }) => {
   `;
 
   const releaseButton = css`
-    display: inline-block;
+    display: block;
     position: relative;
-    bottom: -20px;
+    bottom: -15px;
     background-color: #fb0808;
     border-radius: 10px;
     border: 4px double #cccccc;
@@ -94,31 +92,33 @@ const PokemonListCard = ({ pokemon }) => {
     text-align: center;
     font-size: 6px;
     width: 100px;
-    transition: all 0.5s;
     cursor: pointer;
-    margin: 5px;
+    margin: 0 auto;
   `;
 
+  const wrapper = css`
+    text-align: center;
+  `;
   const removePokemon = useMyPokemonStore((state) => state.removePokemon);
 
   return (
-    <motion.div css={card}>
+    <motion.div layout css={card}>
       <img css={image} src={pokemon.image} alt={pokemon.name} />
       <div>
         {pokemon.nickname ? (
-          <div>
+          <div css={wrapper}>
             <p css={nickname}>{pokemon.nickname}</p>
             <p css={nameAlt}>{`(${formatName(pokemon.name)})`}</p>
+            <button
+              css={releaseButton}
+              onClick={() => removePokemon(pokemon.index)}
+            >
+              Release
+            </button>
           </div>
         ) : (
           <p css={name}>{formatName(pokemon.name)}</p>
         )}
-        <button
-          css={releaseButton}
-          onClick={() => removePokemon(pokemon.index)}
-        >
-          Release
-        </button>
       </div>
       <div css={pokeballContainer}>
         <img
