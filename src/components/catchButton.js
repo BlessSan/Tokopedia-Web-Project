@@ -1,63 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
-import { useMyPokemonStore } from "../store/zustandStore";
-import Popup from "reactjs-popup";
-import shallow from "zustand/shallow";
-
-const Modal = ({ open, closeModal }) => {
-  const [addPokemon, checkIfNicknameExist] = useMyPokemonStore(
-    (state) => [state.addPokemon, state.checkIfNicknameExist],
-    shallow //* fixes issue of update during render
-  );
-  const [error, setError] = useState(false);
-  const [nickname, setNickname] = useState("");
-
-  const handleInput = (event) => {
-    setNickname(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setNickname("");
-    const exist = checkIfNicknameExist(nickname);
-    if (exist) {
-      setError(true);
-    } else {
-      addPokemon(nickname);
-      closeModal();
-    }
-  };
-  return (
-    <Popup open={open} closeOnDocumentClick={false}>
-      <div className="modal">
-        <button className="close" onClick={closeModal}>
-          &times;
-        </button>
-        <h1>Enter Nickname</h1>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleInput}
-            onFocus={() => setError(false)}
-          />
-          {error ? (
-            <h3>nickname already exist, please choose another one</h3>
-          ) : null}
-          <input type="submit" value="enter" />
-        </form>
-      </div>
-    </Popup>
-  );
-};
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import Modal from "./modal";
+//import "reactjs-popup/dist/index.css";
 
 const CatchButton = ({ img }) => {
   const menuText = css`
     font-size: 18px;
     font-weight: 500;
     text-align: center;
-    margin-bottom: 0;
   `;
 
   const logo = css`
@@ -75,22 +28,65 @@ const CatchButton = ({ img }) => {
     console.log(isCaught);
     if (isCaught) {
       setOpen(true);
+    } else {
+      toast.error("The Pokemon ran, try again!", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 2000,
+        closeOnClick: true,
+        style: { top: "80px" },
+      });
     }
   };
 
   const handleClick = (event) => {
     event.preventDefault();
     setLoading(true);
-    setTimeout(handleCatch, 1500);
+    setTimeout(handleCatch, 2000);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  const variant = {
+    default: {
+      rotate: -360,
+      transition: {
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "linear",
+        duration: 3,
+      },
+    },
+
+    catching: {
+      y: [0, -5, 0, -5, 0],
+      transition: {
+        repeat: Infinity,
+        repeatType: "loop",
+        repeatDelay: 0.4,
+      },
+    },
+
+    onTap: {
+      scale: 0.8,
+    },
   };
 
   return (
     <>
       <div onClick={handleClick}>
-        <p css={menuText}>{loading ? "Loading" : "Catch"}</p>
-        <img css={logo} src={img} alt="catchButton" />
+        <div css={menuText}>{loading ? "Catching" : "Catch"}</div>
+        <motion.img
+          variants={variant}
+          animate={loading ? "catching" : "default"}
+          whileTap="onTap"
+          css={logo}
+          src={img}
+          alt="catchButton"
+        />
       </div>
-      <Modal open={open} closeModal={() => setOpen(false)} />
+      <Modal open={open} closeModal={closeModal} />
     </>
   );
 };
