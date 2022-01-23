@@ -21,7 +21,7 @@ const PokemonListCard = ({ pokemon }) => {
     border-color: black;
     border-style: solid;
     border-width: thin;
-    background-color: grey;
+    background-color: #f1e5d8;
   `;
 
   const name = css`

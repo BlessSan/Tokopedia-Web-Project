@@ -16,7 +16,7 @@ const PokemonDetailCard = () => {
     border-color: black;
     border-style: solid;
     border-width: thin;
-    background-color: grey;
+    background-color: #fceec8;
   `;
 
   const name = css`
