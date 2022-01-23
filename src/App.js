@@ -1,20 +1,26 @@
-import { Link, Outlet } from "react-router-dom";
-import PokemonSearch from "./components/PokemonSearch";
+/** @jsxImportSource @emotion/react */
+
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Container from "./components/container";
-import PokemonList from "./components/PokemonList";
 import "./App.css";
 
+import Menu from "./components/MenuBar";
+
 function App() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      window.scrollTo(0, 0);
+    }
+  }, [location]);
+
   return (
     <>
       <Container>
-        <h1>App</h1>
-        <Link to="/pokemon-list">Pokemon List</Link>
-        <Link to="/pokemon-detail">Pokemon Detail</Link>
-        <Link to="/my-pokemon-list">My Pokemon List</Link>
-        <PokemonSearch />
-        {<Outlet /> || <PokemonList />}
+        <Outlet />
       </Container>
+      <Menu />
     </>
   );
 }
