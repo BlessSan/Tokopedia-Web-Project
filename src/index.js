@@ -5,29 +5,17 @@ import { ApolloProvider } from "@apollo/client";
 import "reactjs-popup/dist/index.css";
 
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { client } from "./graphql/client";
-import PokemonList from "./components/PokemonList";
-import PokemonDetail from "./components/PokemonDetail";
-import MyPokemonList from "./components/MyPokemonList";
-import PokemonCard from "./components/PokemonDetailCard";
+import ReactRouter from "./routes";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="pokemon-list" element={<PokemonList />} />
-            <Route path="pokemon-detail" element={<PokemonDetail />}>
-              <Route path=":pokemonName" element={<PokemonCard />} />
-            </Route>
-            <Route path="my-pokemon-list" element={<MyPokemonList />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ApolloProvider>
+    <BrowserRouter>
+      <ApolloProvider client={client}>
+        <ReactRouter />
+      </ApolloProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
