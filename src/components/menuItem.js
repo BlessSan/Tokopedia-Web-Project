@@ -56,15 +56,15 @@ const MenuItem = ({ id, path, text, img }) => {
   const active = formatPath(location.pathname) === path;
 
   return (
-    <Link to={path}>
-      <div css={[menuItem, active ? moveUp : moveDown]}>
-        {params.pokemonName && img ? (
-          <CatchButton img={img} />
-        ) : (
+    <div css={[menuItem, active ? moveUp : moveDown]}>
+      {params.pokemonName && img ? (
+        <CatchButton img={img} />
+      ) : (
+        <Link to={path}>
           <p css={menuText}>{text}</p>
-        )}
-      </div>
-    </Link>
+        </Link>
+      )}
+    </div>
   );
 };
 
