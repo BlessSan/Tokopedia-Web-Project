@@ -21,13 +21,13 @@ const Menu = () => {
   `;
 
   const menuList = [
-    { path: "/", text: "Pokemon List" },
+    { path: "/", text: "Pokémon List" },
     {
       path: "/pokemon-detail",
-      text: "Pokemon Detail",
+      text: "Pokémon Detail",
       img: "/assets/pokeball_catchButton.png",
     },
-    { path: "/my-pokemon-list", text: "My Pokemon List" },
+    { path: "/my-pokemon-list", text: "My Pokémon List" },
   ];
 
   return (
