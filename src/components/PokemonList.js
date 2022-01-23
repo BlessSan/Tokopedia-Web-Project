@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
 import { css } from "@emotion/react";
 import { useQuery } from "@apollo/client";
 import { Link } from "react-router-dom";
@@ -32,39 +31,32 @@ const PokemonList = () => {
   const dataLength = data.pokemons ? data.pokemons.results.length : 0;
   const hasMore = data.pokemons ? data.pokemons.count > dataLength : true;
 
-  console.log("Response from server : ", data);
-  console.log(window.scrollY);
-
   const layout = css`
     margin-top: 1em;
     padding: 0.5em;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: 720px) {
       grid-template-columns: repeat(1, 1fr);
     }
     gap: 1em;
   `;
 
   return (
-    <>
-      <h1> This is Pokemon List page </h1>
-
-      <InfiniteScroll
-        dataLength={dataLength}
-        next={next}
-        hasMore={hasMore}
-        loader={<h1>Loading...</h1>}
-        endMessage={<h1>End</h1>}
-        css={layout}
-      >
-        {data.pokemons.results.map((pokemon) => (
-          <Link to={`/pokemon-detail/${pokemon.name}`} key={pokemon.id}>
-            <PokemonListCard pokemon={pokemon} />
-          </Link>
-        ))}
-      </InfiniteScroll>
-    </>
+    <InfiniteScroll
+      dataLength={dataLength}
+      next={next}
+      hasMore={hasMore}
+      loader={<h1>Loading...</h1>}
+      endMessage={<h1>End</h1>}
+      css={layout}
+    >
+      {data.pokemons.results.map((pokemon) => (
+        <Link to={`/pokemon-detail/${pokemon.name}`} key={pokemon.id}>
+          <PokemonListCard pokemon={pokemon} />
+        </Link>
+      ))}
+    </InfiniteScroll>
   );
 };
 export default PokemonList;
