@@ -8,7 +8,6 @@ const Container = ({ children, ...props }) => {
         width: "100%",
         maxWidth: "800px",
         margin: "0px auto",
-
         flex: 1,
       }}
       {...props}

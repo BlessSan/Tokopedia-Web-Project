@@ -1,9 +1,9 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
 import { css } from "@emotion/react";
 import { useMyPokemonStore } from "../store/zustandStore";
 import PokemonListCard from "./PokemonListCard";
+import Container from "./container";
 
 const MyPokemonList = () => {
   const [pokemonsList, removePokemon] = useMyPokemonStore((state) => [
@@ -23,14 +23,18 @@ const MyPokemonList = () => {
   `;
 
   return (
-    <div css={layout}>
-      {pokemonsList.map((pokemon) => (
-        <div key={pokemon.index}>
-          <PokemonListCard pokemon={pokemon} />
-          <button onClick={() => removePokemon(pokemon.index)}>remove</button>
-        </div>
-      ))}
-    </div>
+    <Container>
+      <div css={layout}>
+        {pokemonsList.map((pokemon) => (
+          <div key={pokemon.index}>
+            <PokemonListCard pokemon={pokemon} />
+            <button onClick={() => removePokemon(pokemon.index)}>
+              Release
+            </button>
+          </div>
+        ))}
+      </div>
+    </Container>
   );
 };
 

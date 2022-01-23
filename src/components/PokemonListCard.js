@@ -1,5 +1,7 @@
 /** @jsxImportSource @emotion/react */
+
 import { useMyPokemonStore } from "../store/zustandStore";
+import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 
 const PokemonListCard = ({ pokemon }) => {
@@ -53,7 +55,8 @@ const PokemonListCard = ({ pokemon }) => {
 
   const ownedNumber = css`
     position: relative;
-    top: -18px;
+    top: -16px;
+    right: 10px;
     font-weight: 500;
     font-size: 16px;
     margin-bottom: 0;
@@ -81,7 +84,7 @@ const PokemonListCard = ({ pokemon }) => {
   `;
 
   return (
-    <div css={card}>
+    <motion.div css={card}>
       <img css={image} src={pokemon.image} alt={pokemon.name} />
       {pokemon.nickname ? (
         <div>
@@ -96,8 +99,8 @@ const PokemonListCard = ({ pokemon }) => {
           css={pokeball}
           src={
             getPokemonCount(pokemon.id)
-              ? "./assets/pokeball_filled.png"
-              : "./assets/pokeball_hollow.png"
+              ? "/assets/pokeball_filled.png"
+              : "/assets/pokeball_hollow.png"
           }
           alt="ownStatus"
         />
@@ -107,7 +110,7 @@ const PokemonListCard = ({ pokemon }) => {
             : null}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
