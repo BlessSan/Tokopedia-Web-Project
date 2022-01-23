@@ -87,7 +87,7 @@ const CatchButton = ({ img }) => {
   return (
     <>
       <div onClick={handleClick}>
-        <p css={menuText}>Catch</p>
+        <p css={menuText}>{loading ? "Loading" : "Catch"}</p>
         <img css={logo} src={img} alt="catchButton" />
       </div>
       <Modal open={open} closeModal={() => setOpen(false)} />
