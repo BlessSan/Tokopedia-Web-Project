@@ -1,21 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
 import { ApolloProvider } from "@apollo/client";
-import "reactjs-popup/dist/index.css";
-
+import { ToastContainer } from "react-toastify";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { client } from "./graphql/client";
 import ReactRouter from "./routes";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ApolloProvider client={client}>
-        <ReactRouter />
-      </ApolloProvider>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <ReactRouter />
+      <ToastContainer />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
