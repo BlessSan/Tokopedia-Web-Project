@@ -83,17 +83,43 @@ const PokemonListCard = ({ pokemon }) => {
     width: 96px;
   `;
 
+  const releaseButton = css`
+    display: inline-block;
+    position: relative;
+    bottom: -20px;
+    background-color: #fb0808;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: #eeeeee;
+    text-align: center;
+    font-size: 6px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  `;
+
+  const removePokemon = useMyPokemonStore((state) => state.removePokemon);
+
   return (
     <motion.div css={card}>
       <img css={image} src={pokemon.image} alt={pokemon.name} />
-      {pokemon.nickname ? (
-        <div>
-          <p css={nickname}>{pokemon.nickname}</p>
-          <p css={nameAlt}>{`(${formatName(pokemon.name)})`}</p>
-        </div>
-      ) : (
-        <p css={name}>{formatName(pokemon.name)}</p>
-      )}
+      <div>
+        {pokemon.nickname ? (
+          <div>
+            <p css={nickname}>{pokemon.nickname}</p>
+            <p css={nameAlt}>{`(${formatName(pokemon.name)})`}</p>
+          </div>
+        ) : (
+          <p css={name}>{formatName(pokemon.name)}</p>
+        )}
+        <button
+          css={releaseButton}
+          onClick={() => removePokemon(pokemon.index)}
+        >
+          Release
+        </button>
+      </div>
       <div css={pokeballContainer}>
         <img
           css={pokeball}

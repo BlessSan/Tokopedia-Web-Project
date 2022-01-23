@@ -28,9 +28,6 @@ const MyPokemonList = () => {
         {pokemonsList.map((pokemon, index) => (
           <div key={index}>
             <PokemonListCard pokemon={pokemon} />
-            <button onClick={() => removePokemon(pokemon.index)}>
-              Release
-            </button>
           </div>
         ))}
       </div>
