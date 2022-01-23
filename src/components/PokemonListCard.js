@@ -3,6 +3,7 @@
 import { useMyPokemonStore } from "../store/zustandStore";
 import { motion } from "framer-motion";
 import { css } from "@emotion/react";
+import { useLocation } from "react-router-dom";
 
 const PokemonListCard = ({ pokemon }) => {
   const getPokemonCount = useMyPokemonStore((state) => state.getPokemonCount);
@@ -29,7 +30,6 @@ const PokemonListCard = ({ pokemon }) => {
     font-weight: 600;
     font-size: 24px;
     word-wrap: break-word;
-    text-align: center;
     text-transform: capitalize;
   `;
 
@@ -100,25 +100,36 @@ const PokemonListCard = ({ pokemon }) => {
     text-align: center;
   `;
   const removePokemon = useMyPokemonStore((state) => state.removePokemon);
+  const location = useLocation();
+  const isInMyPokemonList = location.pathname === "/my-pokemon-list";
+  console.log(isInMyPokemonList);
 
   return (
-    <motion.div layout css={card}>
+    <motion.div
+      layout
+      key={pokemon.index}
+      animate={{ opacity: 1 }}
+      exit={{ scale: 0 }}
+      css={card}
+    >
       <img css={image} src={pokemon.image} alt={pokemon.name} />
-      <div>
+      <div css={wrapper}>
         {pokemon.nickname ? (
-          <div css={wrapper}>
+          <div>
             <p css={nickname}>{pokemon.nickname}</p>
-            <p css={nameAlt}>{`(${formatName(pokemon.name)})`}</p>
-            <button
-              css={releaseButton}
-              onClick={() => removePokemon(pokemon.index)}
-            >
-              Release
-            </button>
+            <p css={nameAlt}>{`(${pokemon.name})`}</p>
           </div>
         ) : (
-          <p css={name}>{formatName(pokemon.name)}</p>
+          <p css={name}>{pokemon.name}</p>
         )}
+        {isInMyPokemonList ? (
+          <button
+            css={releaseButton}
+            onClick={() => removePokemon(pokemon.index)}
+          >
+            Release
+          </button>
+        ) : null}
       </div>
       <div css={pokeballContainer}>
         <img

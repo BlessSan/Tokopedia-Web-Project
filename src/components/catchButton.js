@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 import Modal from "./modal";
-//import "reactjs-popup/dist/index.css";
+import { useParams } from "react-router-dom";
 
 const CatchButton = ({ img }) => {
   const menuText = css`
@@ -19,6 +19,9 @@ const CatchButton = ({ img }) => {
     object-fit: cover;
   `;
 
+  const params = useParams();
+  const pokemonName = params.pokemonName;
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +32,7 @@ const CatchButton = ({ img }) => {
     if (isCaught) {
       setOpen(true);
     } else {
-      toast.error("The Pokemon ran, try again!", {
+      toast.error(`${pokemonName} ran, try again!`, {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeOnClick: true,

@@ -7,6 +7,7 @@ import shallow from "zustand/shallow";
 import Popup from "reactjs-popup";
 import { IoClose } from "react-icons/io5";
 import { IoMdAlert } from "react-icons/io";
+import { useParams } from "react-router-dom";
 
 const Modal = ({ open, closeModal }) => {
   const errorMessage = css`
@@ -60,6 +61,8 @@ const Modal = ({ open, closeModal }) => {
   const form = css`
     padding: 10px 10px;
   `;
+  const params = useParams();
+  const pokemonName = params.pokemonName;
 
   const [addPokemon, checkIfNicknameExist] = useMyPokemonStore(
     (state) => [state.addPokemon, state.checkIfNicknameExist],
@@ -75,11 +78,13 @@ const Modal = ({ open, closeModal }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setNickname("");
-    const exist = checkIfNicknameExist(nickname);
+    const exist = checkIfNicknameExist(
+      nickname === "" ? pokemonName : nickname
+    );
     if (exist) {
       setError(true);
     } else {
-      addPokemon(nickname);
+      addPokemon(nickname === "" ? pokemonName : nickname);
       closeModal();
     }
   };
@@ -94,7 +99,7 @@ const Modal = ({ open, closeModal }) => {
         <button css={exitButton} className="close" onClick={closeModal}>
           <IoClose size={"1.5em"} />
         </button>
-        <div css={modalTitle}>Enter Nickname</div>
+        <div css={modalTitle}>Enter nickname for {pokemonName}</div>
         <form onSubmit={handleSubmit}>
           <div css={form}>
             <input
@@ -103,6 +108,7 @@ const Modal = ({ open, closeModal }) => {
               value={nickname}
               onChange={handleInput}
               onFocus={() => setError(false)}
+              placeholder={pokemonName}
             />
             <input css={button} type="submit" value="Submit" />
             {error ? (

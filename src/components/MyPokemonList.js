@@ -4,6 +4,7 @@ import { css } from "@emotion/react";
 import { useMyPokemonStore } from "../store/zustandStore";
 import PokemonListCard from "./PokemonListCard";
 import Container from "./container";
+import { AnimatePresence } from "framer-motion";
 
 const MyPokemonList = () => {
   const [pokemonsList] = useMyPokemonStore((state) => [state.pokemonsList]);
@@ -22,11 +23,11 @@ const MyPokemonList = () => {
   return (
     <Container>
       <div css={layout}>
-        {pokemonsList.map((pokemon, index) => (
-          <div key={index}>
-            <PokemonListCard pokemon={pokemon} />
-          </div>
-        ))}
+        <AnimatePresence initial={false}>
+          {pokemonsList.map((pokemon, index) => (
+            <PokemonListCard key={index} pokemon={pokemon} />
+          ))}
+        </AnimatePresence>
       </div>
     </Container>
   );
