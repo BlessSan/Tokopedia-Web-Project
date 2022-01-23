@@ -9,7 +9,7 @@ const Menu = () => {
     height: 70px;
     position: fixed;
     bottom: 0;
-    z-index: 1000;
+    z-index: 200;
   `;
 
   const menu = css`
