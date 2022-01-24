@@ -28,7 +28,6 @@ const CatchButton = ({ img }) => {
   const handleCatch = () => {
     const isCaught = Math.random() < 0.5;
     setLoading(false);
-    console.log(isCaught);
     if (isCaught) {
       setOpen(true);
     } else {
