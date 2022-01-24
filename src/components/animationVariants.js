@@ -6,7 +6,7 @@ const transition = {
 
 export const pageTransitionVariant = {
   initial: {
-    y: 1000,
+    y: 2000,
     transition: transition,
   },
   animate: {
@@ -14,7 +14,7 @@ export const pageTransitionVariant = {
     transition: transition,
   },
   exit: {
-    y: 1000,
+    y: 2000,
     transition: transition,
   },
 };
