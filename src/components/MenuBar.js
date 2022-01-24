@@ -27,7 +27,7 @@ const Menu = () => {
       text: "Pokémon Detail",
       img: "/assets/pokeball_catchButton.png",
     },
-    { path: "/my-pokemon-list", text: "My Pokémon List" },
+    { path: "/my-pokemon-list", text: "My Pokémon" },
   ];
 
   return (
