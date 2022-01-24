@@ -99,8 +99,6 @@ const PokemonDetailCard = () => {
     variables: gqlVariables,
   });
 
-  console.log("Response from server : ", data);
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error</p>;
 
