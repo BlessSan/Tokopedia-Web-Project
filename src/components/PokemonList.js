@@ -8,7 +8,7 @@ import { GET_POKEMON_LIST } from "../graphql/queries";
 import PokemonListCard from "./PokemonListCard";
 
 const gqlVariables = {
-  limit: 12,
+  limit: 20,
   offset: 0,
 };
 
