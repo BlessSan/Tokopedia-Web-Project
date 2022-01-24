@@ -7,9 +7,6 @@ import { useLocation } from "react-router-dom";
 
 const PokemonListCard = ({ pokemon }) => {
   const getPokemonCount = useMyPokemonStore((state) => state.getPokemonCount);
-  const formatName = (name) => {
-    return name.split("-")[0];
-  };
 
   const card = css`
     display: flex;
