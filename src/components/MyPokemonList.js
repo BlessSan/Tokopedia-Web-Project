@@ -5,6 +5,7 @@ import { useMyPokemonStore } from "../store/zustandStore";
 import PokemonListCard from "./PokemonListCard";
 import Container from "./container";
 import { AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const MyPokemonList = () => {
   const [pokemonsList] = useMyPokemonStore((state) => [state.pokemonsList]);
@@ -20,15 +21,39 @@ const MyPokemonList = () => {
     gap: 1em;
   `;
 
+  const text = css`
+    text-align: center;
+    margin-top: 200px;
+    padding: 1em;
+  `;
+
+  const link = css`
+    color: #e71a1a;
+  `;
+
   return (
     <Container>
-      <div css={layout}>
-        <AnimatePresence initial={false}>
-          {pokemonsList.map((pokemon, index) => (
-            <PokemonListCard key={index} pokemon={pokemon} />
-          ))}
-        </AnimatePresence>
-      </div>
+      {pokemonsList.length === 0 ? (
+        <div css={text}>
+          <h1>It's kinda empty...</h1>
+          <h1>
+            Catch `em{" "}
+            {
+              <Link css={link} to="/">
+                here!
+              </Link>
+            }
+          </h1>
+        </div>
+      ) : (
+        <div css={layout}>
+          <AnimatePresence initial={false}>
+            {pokemonsList.map((pokemon, index) => (
+              <PokemonListCard key={index} pokemon={pokemon} />
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
     </Container>
   );
 };
