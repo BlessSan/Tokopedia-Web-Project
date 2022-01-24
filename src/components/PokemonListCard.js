@@ -53,7 +53,7 @@ const PokemonListCard = ({ pokemon }) => {
     top: -16px;
     right: 10px;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 0;
     margin-top: 0;
   `;
