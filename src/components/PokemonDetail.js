@@ -1,12 +1,19 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Container from "./container";
+import { motion } from "framer-motion";
+import { pageTransitionVariant } from "./animationVariants";
 
 const PokemonDetail = () => {
   return (
-    <Container>
+    <motion.div
+      variants={pageTransitionVariant}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      key="PokemonDetail"
+    >
       <Outlet />
-    </Container>
+    </motion.div>
   );
 };
 

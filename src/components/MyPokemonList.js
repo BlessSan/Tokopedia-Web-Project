@@ -3,9 +3,9 @@
 import { css } from "@emotion/react";
 import { useMyPokemonStore } from "../store/zustandStore";
 import PokemonListCard from "./PokemonListCard";
-import Container from "./container";
-import { AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { pageTransitionVariant } from "./animationVariants";
 
 const MyPokemonList = () => {
   const [pokemonsList] = useMyPokemonStore((state) => [state.pokemonsList]);
@@ -32,7 +32,13 @@ const MyPokemonList = () => {
   `;
 
   return (
-    <Container>
+    <motion.div
+      variants={pageTransitionVariant}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      key="MyPokemon"
+    >
       {pokemonsList.length === 0 ? (
         <div css={text}>
           <h1>It's kinda empty...</h1>
@@ -47,14 +53,12 @@ const MyPokemonList = () => {
         </div>
       ) : (
         <div css={layout}>
-          <AnimatePresence initial={false}>
-            {pokemonsList.map((pokemon, index) => (
-              <PokemonListCard key={index} pokemon={pokemon} />
-            ))}
-          </AnimatePresence>
+          {pokemonsList.map((pokemon, index) => (
+            <PokemonListCard key={index} pokemon={pokemon} />
+          ))}
         </div>
       )}
-    </Container>
+    </motion.div>
   );
 };
 
