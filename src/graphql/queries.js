@@ -22,11 +22,6 @@ export const GET_POKEMON_DETAIL = gql`
       sprites {
         front_default
       }
-      abilities {
-        ability {
-          name
-        }
-      }
       moves {
         move {
           name
@@ -37,8 +32,6 @@ export const GET_POKEMON_DETAIL = gql`
           name
         }
       }
-      message
-      status
     }
   }
 `;
