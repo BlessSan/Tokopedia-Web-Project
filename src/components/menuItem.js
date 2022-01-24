@@ -1,32 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { Link, useLocation, useParams } from "react-router-dom";
-import { css, keyframes } from "@emotion/react";
+import { css } from "@emotion/react";
 import CatchButton from "./catchButton";
+import { motion } from "framer-motion";
+import { menuButtonVariant } from "./animationVariants";
 
 const MenuItem = ({ id, path, text, img }) => {
   const location = useLocation();
   const params = useParams();
-
-  const moveUpKeyframe = keyframes`
-  from{ transform: translateY(0%);}
-  to{transform: translateY(-20%);}
-  `;
-
-  const moveDownKeyframe = keyframes`
-  from{ transform: translateY(-20%);}
-  to{transform: translateY(0%);}
-  `;
-
-  const moveUp = css`
-    animation: ${moveUpKeyframe} 0.3s ease;
-    animation-fill-mode: forwards;
-  `;
-
-  const moveDown = css`
-    animation: ${moveDownKeyframe} 0.3s ease;
-    animation-fill-mode: forwards;
-  `;
 
   const menuItem = css`
     border-color: black;
@@ -56,7 +38,13 @@ const MenuItem = ({ id, path, text, img }) => {
   const active = formatPath(location.pathname) === path;
 
   return (
-    <div css={[menuItem, active ? moveUp : moveDown]}>
+    <motion.div
+      variants={menuButtonVariant}
+      initial="initial"
+      animate={active && "selected"}
+      exit="initial"
+      css={menuItem}
+    >
       {params.pokemonName && img ? (
         <CatchButton img={img} />
       ) : (
@@ -64,7 +52,7 @@ const MenuItem = ({ id, path, text, img }) => {
           <p css={menuText}>{text}</p>
         </Link>
       )}
-    </div>
+    </motion.div>
   );
 };
 
