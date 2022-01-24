@@ -4,8 +4,9 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { GET_POKEMON_DETAIL } from "../graphql/queries";
 import { useMyPokemonStore } from "../store/zustandStore";
-import { css } from "@emotion/react";
+import { css, ThemeProvider } from "@emotion/react";
 import shallow from "zustand/shallow";
+import { theme } from "./theme";
 
 const PokemonDetailCard = () => {
   const card = css`
@@ -19,12 +20,21 @@ const PokemonDetailCard = () => {
     background-color: #f1e5d8;
   `;
 
+  const textContainer = css`
+    text-align: center;
+  `;
   const name = css`
     margin-top: 0;
     font-weight: 600;
     font-size: 24px;
     word-wrap: break-word;
-    text-align: center;
+    text-transform: capitalize;
+  `;
+  const type = css`
+    margin-top: 0;
+    font-weight: 600;
+    font-size: 16px;
+    word-wrap: break-word;
     text-transform: capitalize;
   `;
 
@@ -108,14 +118,26 @@ const PokemonDetailCard = () => {
     data.pokemon.name
   );
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <div css={card}>
         <img
           css={image}
           src={data.pokemon.sprites.front_default}
           alt={data.pokemon.name}
         />
-        <p css={name}>{data.pokemon.name}</p>
+        <div css={textContainer}>
+          <p css={name}>{data.pokemon.name}</p>
+          <div css={type}>
+            {data.pokemon.types.map((type, index) => (
+              <div
+                key={index}
+                css={(theme) => ({ color: theme.colors.type[type.type.name] })}
+              >
+                {type.type.name}
+              </div>
+            ))}
+          </div>
+        </div>
         <div css={pokeballContainer}>
           <img
             css={pokeball}
@@ -140,7 +162,7 @@ const PokemonDetailCard = () => {
           </p>
         ))}
       </div>
-    </>
+    </ThemeProvider>
   );
 };
 
