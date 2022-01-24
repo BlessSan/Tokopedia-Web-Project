@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { useMyPokemonStore } from "../store/zustandStore";
-import { motion } from "framer-motion";
 import { css } from "@emotion/react";
 import { useLocation } from "react-router-dom";
 
@@ -100,16 +99,9 @@ const PokemonListCard = ({ pokemon }) => {
   const removePokemon = useMyPokemonStore((state) => state.removePokemon);
   const location = useLocation();
   const isInMyPokemonList = location.pathname === "/my-pokemon-list";
-  console.log(isInMyPokemonList);
 
   return (
-    <motion.div
-      layout
-      key={pokemon.index}
-      animate={{ opacity: 1 }}
-      exit={{ scale: 0 }}
-      css={card}
-    >
+    <div key={pokemon.index} css={card}>
       <img css={image} src={pokemon.image} alt={pokemon.name} />
       <div css={wrapper}>
         {pokemon.nickname ? (
@@ -145,7 +137,7 @@ const PokemonListCard = ({ pokemon }) => {
             : null}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
