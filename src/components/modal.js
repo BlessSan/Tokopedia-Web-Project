@@ -19,7 +19,6 @@ const Modal = ({ open, closeModal }) => {
 
   const input = css`
     border-color: 1px black;
-    border-radius: 10px;
     font-size: 1rem;
     min-width: 100px;
     padding: 0.5rem;
@@ -28,7 +27,6 @@ const Modal = ({ open, closeModal }) => {
 
   const button = css`
     border-color: 1px black;
-    border-radius: 10px;
     font-size: 1rem;
     font-weight: 600;
     min-width: 100px;
