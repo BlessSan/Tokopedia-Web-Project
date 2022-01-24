@@ -28,8 +28,4 @@ export const menuButtonVariant = {
     y: -15,
     transition: transition,
   },
-  unselected: {
-    y: 0,
-    transition: transition,
-  },
 };
