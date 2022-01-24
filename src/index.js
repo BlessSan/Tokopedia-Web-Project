@@ -5,14 +5,17 @@ import { ToastContainer } from "react-toastify";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { client } from "./graphql/client";
-import ReactRouter from "./routes";
+import AnimatedRouter from "./routes";
+import { BrowserRouter } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <ReactRouter />
-      <ToastContainer />
+      <BrowserRouter>
+        <AnimatedRouter />
+        <ToastContainer />
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
