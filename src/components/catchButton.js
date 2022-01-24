@@ -35,7 +35,7 @@ const CatchButton = ({ img }) => {
         position: toast.POSITION.TOP_CENTER,
         autoClose: 2000,
         closeOnClick: true,
-        style: { top: "80px" },
+        style: { top: "115px" },
       });
     }
   };

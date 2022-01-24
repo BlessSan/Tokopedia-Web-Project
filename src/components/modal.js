@@ -8,6 +8,7 @@ import Popup from "reactjs-popup";
 import { IoClose } from "react-icons/io5";
 import { IoMdAlert } from "react-icons/io";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Modal = ({ open, closeModal }) => {
   const errorMessage = css`
@@ -83,6 +84,15 @@ const Modal = ({ open, closeModal }) => {
       setError(true);
     } else {
       addPokemon(nickname === "" ? pokemonName : nickname);
+      toast.success(
+        `${nickname === "" ? pokemonName : nickname} added to your box!`,
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          closeOnClick: true,
+          style: { top: "115px" },
+        }
+      );
       closeModal();
     }
   };
