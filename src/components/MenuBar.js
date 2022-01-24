@@ -6,7 +6,7 @@ import MenuItem from "./menuItem";
 const Menu = () => {
   const layout = css`
     width: 100%;
-    height: 70px;
+    height: 80px;
     position: fixed;
     bottom: 0;
     z-index: 200;
