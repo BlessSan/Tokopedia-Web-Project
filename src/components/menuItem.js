@@ -21,10 +21,11 @@ const MenuItem = ({ id, path, text, img }) => {
     margin-top: 20px;
   `;
   const menuText = css`
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     text-align: center;
     margin-bottom: 0;
+    padding: 0.2em;
   `;
 
   const formatPath = (path) => {
